@@ -44,3 +44,15 @@ app.include_router(
 def read_root():
     """Root health check endpoint."""
     return {"message": "Loan Default Prediction API is running"}
+
+@app.get("/api/routes")
+def show_routes():
+    return {
+        "routes": [
+            {
+                "path": route.path,
+                "methods": list(route.methods or [])
+            }
+            for route in app.routes
+        ]
+    }
