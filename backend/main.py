@@ -3,6 +3,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.routes.prediction import router as prediction_router
 
+print("PREDICTION ROUTER LOADED")
+print("ROUTER ROUTES:", [route.path for route in prediction_router.routes])
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -54,5 +57,17 @@ def show_routes():
                 "methods": list(route.methods or [])
             }
             for route in app.routes
+        ]
+    }
+
+@app.get("/api/debug-router")
+def debug_router():
+    return {
+        "router_routes": [
+            {
+                "path": route.path,
+                "methods": list(route.methods or [])
+            }
+            for route in prediction_router.routes
         ]
     }
