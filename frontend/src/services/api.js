@@ -1,4 +1,6 @@
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const rawBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const normalizedBase = rawBaseUrl.replace(/\/+$/, '');
+const BASE_URL = normalizedBase.endsWith('/api') ? normalizedBase : `${normalizedBase}/api`;
 
 /**
  * Sends applicant data to FastAPI /predict endpoint.
